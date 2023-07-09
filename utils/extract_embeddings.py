@@ -60,3 +60,4 @@ class BERTEmbeddings:
 
         embeddings = torch.stack(embeddings)
         return embeddings
+
