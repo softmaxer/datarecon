@@ -1,0 +1,277 @@
+\documentclass{article}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
+\lstset{defaultdialect=[5.3]Lua}
+\lstset{defaultdialect=[x86masm]Assembler}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\author{}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{standalone}
+\title{Discrete Fourier Transform and Fast Fourier Transforms}
+\author{Sriram Vadlamani}
+\begin{document}
+\maketitle
+\newpage
+\section{The fourier series}
+The Discrete Fourier Transforms acronymed as DFT can be derived from the formula of the fourier series.\\
+Let's have a look at the general formula of the Fourier Series:\\
+\\
+$f(x)$ = $a_{0}$ + $\displaystyle \sum_{n = 1}^{+ \infty}(a_{n}\cos(\frac{n \pi x} {L}) + b_{n}\sin(\frac{n \pi x}{L}))$\\
+\\
+\subsection{Arriving at the Fourier series from the DFT}
+We will try to prove that the DFT are just the same as the Fourier series general formula. We can start by looking at the general DFT formula\\
+$\forall f_{k} $ where $k \in \mathbb{N}$ are vectors and $\hat{f}_{k} $ are the frequencies of the each $f_{k}$ vectors i.e, the fourier transform.\\
+\\
+$\hat{f}_{k}$ = $\displaystyle \sum_{j = 0}^{n - 1} f_{j} e^{-\iota 2 \pi j k / n}$\\
+\\
+From here, let's use $e^{\iota \theta} = \cos(\theta) + \iota \sin(\theta)$\\
+\\
+Then, we have:\\
+\\
+$\hat{f}_{k} $ = $\displaystyle \sum_{j = 0}^{n - 1} \{ (f_{j} \cos(\frac{2 \pi j k} {n})) - (f_{j} \iota \sin(\frac{2 \pi j k}{n})) \} $\\
+\\
+For this proof, let's assume $k = 1$\\
+\\
+For $j = 0$ the cosine term equals 1 and the sine term nullifies and hence becomes $f_{0}$\\
+\\
+simplifying on the same basis, we get:\\
+\\
+$f_{0}$ + $ f_{1}(\cos(\frac{2 \pi}{n}) - \iota \sin(\frac{2 \pi}{n})) $ + $f_{2} (\cos(\frac{4 \pi}{n}) - \iota \sin(\frac{4 \pi}{n}))$ + $ \cdots $
+ + $f_{n}(\cos(\frac{2 (n - 1) \pi }{n}) - \iota \sin(\frac{2 (n - 1) \pi }{n}))$\\
+ \\
+ Now, factoring the cosines and sines i.e, rearranging them, we get:\\
+ \\
+ $\hat{f}_{1}$ = $f_{0}$ + $\displaystyle \sum_{j = 1}^{n} f_{n}(\cos(\frac{2 \pi j}{n}) - \iota \sin(\frac{2 \pi j}{n}))$\\
+ \\
+ We can see a clear relation with the general fourier expression with $a_{0} = f_{0}$, $a_{n} = f_{n}$ and $b_{n} = - \iota f_{n}$\\
+ \\
+\section{DFT matrix}
+From the general formula of the DFT $\hat{f}_{k}$ = $\displaystyle \sum_{j = 0}^{n - 1} f_{j} e^{-\iota 2 \pi j k / n}$ we can say that\\
+\\
+$\hat{f}_{k}$ are multiples of $e^{\frac{- 2 \pi \iota }{n}}$\\
+\\
+So let's say $\omega_{n}$ = $e^{\frac{- 2 \pi \iota }{n}}$\\
+\\
+let the vector of $f_{k}$ be\\
+$$\begin{bmatrix} f_{1}\\ f_{2} \\ \vdots \\ f_{k} \end{bmatrix}$$
+and let the $\hat{f}_{k}$ vector be\\
+$$\begin{bmatrix} \hat{f}_{1}\\ \hat_{f}_{2}\\ \vdots \\ \hat{f}_{k} \end{bmatrix}$$
+\\
+and the DFT matrix would hence be:\\
+\\
+$$ 
+\begin{bmatrix}
+1 & 1 & 1 & \cdots & 1 \\
+1 & \omega_{n} & \omega_{n} & \cdots & \omega_{n}^{n-1} \\
+1 & \omega_{n} & \omega_{n}^{2} & \cdots & \omega_{n}^{2 (n - 1)}\\
+1 & \vdots & \vdots & \vdots & \vdots\\
+1 & \omega_{n}^{n-1} & \omega_{n}^{2 (n - 1)}& \cdots & \omega_{n}^{(n-1)^{2}}
+\end{bmatrix}
+$$
+\\
+Therefore we can say that:\\
+$\hat{f}_{k} = M \cdot f_{k}$\\
+\\
+The above matrix multiplication gives us the $\hat{f}_{k}$ vectors which are nothing but the frequency of the of each of the $f_{k}$ vectors.\\
+\\
+\section{Fast Fourier Transforms (FFT)}
+The FFT is an algorithm that performs the DFT in a more efficient way. Let's assume the number of vectors $f_{k}$ are a clean power of two.
+let k = 1024.\\
+in that case the DFT can be written as:\\
+\\
+$\hat{f}_{k} = M_{1024} \cdot f_{k}$
+we can split the $M_{1024}$ matrix as the following:\\
+\\
+$M_{1024}$ = $\begin{bmatrix} I_{512} & D_{512}\\ I_{512} & -D_{512} \end{bmatrix}$ $\cdot$ $\begin{bmatrix} F_{512} & 0\\ 0 & F_{512} \end{bmatrix}$ $\cdot$ $\begin{bmatrix} f_{even}\\ f_{odd} \end{bmatrix}$\\
+\\
+Where I is the identity matrix and D is the diagonal matrix of the given order.\\
+\\
+Now, the $F_{512}$ matrix can be further split into 2 $F_{256}$ and 4 $F_{128}$ and so on until we reach a 2 x 2 matrix, whose value can be stored to compute the other values, this is also known as dynamic programming.\\
+\section{A simple noise reduction program in python}
+
+\begin{lstlisting}[language=Python]
+# Import statements
+import os
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+plt.rcParams['figure.figsize'] = [16, 12]
+plt.rcParams.update({'font.size': 18})
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# create a simple signal with two frequencies
+dt = 0.001
+t = np.arange(0,1,dt)
+f = np.sin(2*np.pi*50*t) + np.sin(2*np.pi*120*t) # some random frequencies
+f_clean = f
+f = f + 2.5*np.random.randn(len(t))
+
+plt.plot(t,f,color='orange',LineWidth=1.5,label='Noisy')
+plt.plot(t,f_clean,color='black',LineWidth=2,label='Clean')
+plt.xlim(t[0], t[-1])
+plt.legend()
+\end{lstlisting}
+
+\begin{lstlisting}
+<matplotlib.legend.Legend at 0x7f17636c9d60>
+\end{lstlisting}
+
+\begin{figure}
+\centering
+\includegraphics{FFT_files/FFT_2_1.png}
+\caption{png}
+\end{figure}
+
+\begin{lstlisting}[language=Python]
+n = len(t)
+fhat = np.fft.fft(f,n)  # It's that simple in numpy!
+PSD = fhat * np.conj(fhat) / n # PSD = Power spectral density
+freq = (1/(dt*n)) * np.arange(n)
+L = np.arange(1,np.floor(n/2),dtype='int')
+
+fig,axs = plt.subplots(2,1)
+plt.sca(axs[0])
+plt.plot(t,f,color='c',LineWidth='1.5',label='Noisy')
+plt.plot(t,f_clean,color='k',LineWidth='1.5',label='clean')
+plt.xlim(t[0],t[-1])
+plt.legend()
+
+plt.sca(axs[1])
+plt.plot(freq[L],PSD[L],color='c',LineWidth='1.5',label='noisy')
+plt.xlim(freq[L[0]], freq[L[-1]])
+plt.xlabel('frequency')
+plt.ylabel('PSD')
+plt.legend()
+
+plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}
+/usr/lib/python3.8/site-packages/numpy/core/_asarray.py:85: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+\end{lstlisting}
+
+\begin{figure}
+\centering
+\includegraphics{FFT_files/FFT_3_1.png}
+\caption{png}
+\end{figure}
+
+\begin{lstlisting}[language=Python]
+'''
+We can clearly see two spikes in the above graph that are 50hz and 120hz, which is no surprise as they are the
+frequencies that we constructed. So we can choose a number, say 100 and any Fourier coeff. below 100 can be zeroed out 
+to give us pure frequencies of 50 and 120hz.
+'''
+\end{lstlisting}
+
+\begin{lstlisting}
+'\nWe can clearly see two spikes in the above graph that are 50hz and 120hz, which is no surprise as they are the\nfrequencies that we constructed. So we can choose a number, say 100 and any Fourier coeff. below 100 can be zeroed out \nto give us pure frequencies of 50 and 120hz.\n'
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# Filtering out the noise using the PSD
+indices = PSD > 100
+PSD_clean = PSD * indices # zeroing out all the PSD below 100
+fhat = indices * fhat
+f_filter = np.fft.ifft(fhat) # Inverse FFT
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# Now plotting the filtered data
+fig, axs = plt.subplots(3,1)
+plt.sca(axs[0])
+plt.plot(t,f_filter,color='c',LineWidth='1.5',label='filtered signal')
+plt.xlim(t[0],t[-1])
+plt.legend()
+
+plt.sca(axs[1])
+plt.plot(freq[L],PSD_clean[L],color='c', LineWidth='1.5',label='PSD filtered')
+plt.xlim(freq[L[0]], freq[L[-1]])
+plt.legend()
+plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}
+/usr/lib/python3.8/site-packages/numpy/core/_asarray.py:85: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+/usr/lib/python3.8/site-packages/numpy/core/_asarray.py:85: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+\end{lstlisting}
+
+\begin{figure}
+\centering
+\includegraphics{FFT_files/FFT_6_1.png}
+\caption{png}
+\end{figure}
+
+\begin{lstlisting}[language=Python]
+\end{lstlisting}
+
+
+\end{document}

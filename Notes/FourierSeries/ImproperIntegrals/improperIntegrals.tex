@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{fixltx2e}
+\title{Improper Integrals}
+\author{Sriram Vadlamani}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Definition}
+When a function is not defind for either or both of the bounds in an integral, it is known as an improper integral.\\
+$\int _ { a } ^ { b } f ( t ) d t$\\
+$f: [ a , b [ \rightarrow R $\\
+\textit{f} continous on $[ a , b [$\\
+
+E.g:\\
+$\int _ { 1 } ^ { + \infty } e ^ { - t } d t$\\
+\section{Convergence and Divergence}
+let $f: [a, b[ \rightarrow R $  and \textit{f} be continous on $[a, b[$.\\
+we say that the integral is convergent if\\
+$$\lim_{x\to b} \int_{a}^{x} f(t) dt$$ is a finite value.\\
+else, it is divergent.\\
+\subsection{Proposition 1}
+let \textit{f} and \textit{g} be two functions on $[ a, b [$ such that, both integrals 
+$\int_{a}^{b} f(t) dt$ and $\int_{a}^{b} g(t) dt$ converge.\\
+Then
+$ \forall \alpha \in \mathbb{R} $, $\int_{a}^{b} (\alpha f(t) + g(t))$ converges and linearity can be used to split the two integrals.\\
+\subsection{Riemann Functions}
+Theorem:\\
+\begin{itemize}
+    \item $\int_{0}^{1} dt / t ^ \alpha $ converges $ \Leftrightarrow $ $ \alpha < 1 $\\
+    \item $\int_{1}^{+\infty} dt / t ^ \alpha $ converges $ \Leftrightarrow $ $\alpha > 1$\\
+    \item $\int_{0}^{+\infty} dt / t ^ \alpha $ is always divergent.\\
+\end{itemize}
+\subsection{Positive funtions improper integrals}
+let $f: [ a, b [ \rightarrow $ R\textsubscript{+} and $g: [ a, b [ \rightarrow $ R\textsubscript{+}, continous on $ [a, b [ $.\\
+if $f(t) < g(t)$, then\\
+\begin{itemize}
+    \item if $\int _ { a } ^ { b } g ( t ) d t$ is conv \Rightarrow $\int _ { a } ^ { b } f ( t ) d t$ is conv.\\ 
+    \item if $\int _ { a } ^ { b } f ( t ) d t$ is divergent \Rightarrow $\int _ { a } ^ { b } g ( t ) d t$ is divergent.\\
+    \item if $f(t) =  o (g(t)) $ then if $\int _ { a } ^ { b } g ( t ) d t$ is conv. \Rightarrow $\int _ { a } ^ { b } f ( t ) d t$ is conv.\\
+    \item if $f(t) \sim g(t) $ then $\int _ { a } ^ { b } f ( t ) d t$ and $\int _ { a } ^ { b } g ( t ) d t $ have the same nature\\ 
+\end{itemize}
+\section{Cheat sheet}
+\subsection{Different Integration methods}
+\subsection{Integration by parts}
+When the integral is in the form of $f(t)\cdot g(t)$ we can do the integration by splitting them into the following:\\
+$\int_{a}^{b} u \cdot v'$ = $u\cdot v + $ $\int_{a}^{b} v\cdot u'$\\
+\subsection{Integration by substitution}
+When we have an integral $\int_{a}^{b} f(x) dx$ then we try to find a suitable \textit{u} where:\\
+$u = f(x)$ and replace the integral as follows:\\
+$\int_{f(a)}^{f(b)} u du $\\
+\\
+\section{Abel's Theorem}
+let \textit{f} and \textit{g} be two continous functions over $[a, b[$ such that:\\
+1) \textit{f} is decreasing and $\lim_{t \to +\infty} f(t) = 0$\\
+2) $\exists k \in R$, $\forall x \in [ a, b [$, $\int_{a}^{x} \mid g(t) \mid dt $ $\leq$ $k$\\
+then the integral $\int_{a}^{x} f(t) \cdot g(t) dt$ is convergent.\\
+\\
+\section{Some important integrals}
+\begin{itemize}
+    \item \textbf{LEJEUNE-DIRICHLET's} integral represented as $\int_{0}^{+\infty} \frac{sin(x)}{x} dx$
+    \item \textbf{LAPLACE - GAUSS's} integral represented as $\int_{0}^{+\infty} e^{-t^{2}} dt$ which is equal to $\frac{\sqrt{\pi}}{2}$
+\end{itemize}
+\section{Last Remarks}
+\textbf{General redefinition of a function}: \\
+$\forall f$ : $t \rightarrow f(t)$ defined on $] a, b ]$\\
+if $\lim_{x \to a} f(x) = k$ $\forall k \in R$ then:\\
+$f(x)$ is continous on $[ a, b ]$
+\end{document}

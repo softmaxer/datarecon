@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage{amsmath}
+\author{Sriram Vadlamani}
+\title{Inner Product Spaces}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+\subsection{A bilinear Form}
+let E be an R-vs and $\theta: E \times E \rightarrow R$, 
+we say, $\theta$ is a bilinear form if:\\
+$\forall (u,v,w) \in E^2$ and $\forall a \in R$, 
+\begin{itemize}
+    \item $\theta (u + v, w) = \theta(u,v) + \theta(u,w)$
+    \item $\theta (au, v) = a\theta(u,v)$
+\end{itemize}
+\textbf{Proposition 1}\\
+let E be an R-vs of finite dimension `n'. We have B = (e\textsubscript{1},e\textsubscript{2}, ... , e\textsubscript{n}) the basis of E.\\
+$\theta: E \times E \rightarrow R $ a bilinear form.\\
+Then $\forall (x,y) \in E^2, \theta(x,y) = X^t \cdot M \cdot Y$\\
+Where M is the matrix of the bilinear form defined as:\\
+$M = \theta(e\textsubscript{i}, e\textsubscript{j})$\\
+And X and Y are the coordinates of `x' and `y'.\\
+\section{Inner product}
+A space $(E, \theta)$ is said to be an inner product space iff\\ 
+\begin{itemize}
+    \item The bilinear form is `\textit{symmetric}'
+    \item The form is positive definite.
+\end{itemize}
+\subsection{Symmetry}
+A bilinear form is symmetric iff\\
+$\forall (x,y) \in E^2$\\
+$\theta(x,y) = \theta(y,x)$
+\subsection{Positive definite}
+A bilinear form is said to be positive definite iff\\
+$\forall x \in E, \theta(x,x) \geq 0$, and \\
+$\forall x \in E, \theta(x,x) = 0 \Longrightarrow x = 0$\\
+\section{Theorems}
+\subsection{Cauchy-Schwartz and Minkowski Theorems}
+\textbf{Cauchy-Schwartz:} Let E be an R-vs and $\theta$ : $E \rightarrow R$ a positive definite and symmetric bilinear form, then\\
+$\forall (x,y) \in E^2$ $\mid\theta (x,y)\mid$ $\leq$ $\sqrt{\theta(x,x)} \times \sqrt{\theta(y,y)}$\\
+\\
+\\
+\textbf{Minkowski's:} Let $(E,\theta)$ be an inner product space on R, then:\\
+$\forall (x,y) \in E^2$, $\sqrt{\theta(x + y, x + y)}$ $\leq$ $\sqrt{\theta(x,x)} + \sqrt{\theta(y,y)}$\\
+\section{Orthogonality}
+We call $N$ : $E \rightarrow R$ a norm $\forall (x,y) \in E^2$ and $\forall \lambda \in R $ we have:\\
+\begin{itemize}
+    \item $N(x) \geq 0$
+    \item $N(\lambda \cdot x) = \lambda \cdot N(x)$
+    \item $N(x) = 0 \iff x = 0$
+    \item $N(x + y)$ $\leq$ $N(x) + N(y)$
+\end{itemize}
+and we say that `N' is a norm. In geometry, this is what we call a triangular inequality.\\
+\textbf{Proposition 2} The norm for any vector $x \in E$ is $\sqrt{\theta(x,x)}$.\\
+\subsection{Pythagorean Theorem}
+for $(E, \theta)$ an inner product space, and $\forall (x,y) \in E^2$ such that $<x,y> = 0$, we have:\\
+$\left\lVert x + y \right\rVert ^2$ = $\left\lVert x \right\rVert ^ 2$ $ + $ $\left\lVert y \right\rVert ^ 2$\\
+\subsection{The orthogonal of a subspace}
+For $(E, \theta)$ an inner product space, $A^{\perp}$ is defined as:\\
+$\{ \forall x \in E, \forall y \in A, <x,y> = 0\}$ where $A \subset E$\\
+\\
+\textbf{Some important remarks} are:\\
+\begin{itemize}
+    \item $A \subset B$ $\Rightarrow$ $B^{\perp} \subset A^{\perp}$
+    \item $A^{\perp} = $ $span(A)^{\perp}$
+    \item $A \cap A^{\perp} \subset \{ 0 \} $
+\end{itemize}
+\\
+\section{Orthonormal sets}
+\textbf{Definition}\\
+Let $(E, <,>)$ be an inner product space on $ R $ and $ X = \{ x_{1}, x_{2}, .. x_{n} \} \subset E $. And $ B = \{ e_{1}, e_{2}, .. e_{n} \} $ a basis of E. we say that X is an orthonormal set in E if:\\
+$ <x_{i}, x_{j}> = \delta_{ij} $ and\\
+$ <e_{i}, e_{j}> \geq \delta_{ij} $\\
+$ \delta_{ij} = 1 $ if $ i = j $\\
+$ \delta_{ij} = 0 $ if $ i \neq j $\\
+\\
+\textbf{Proposition 7:} Any orthogonal set / family of vectors of non-zero vectors from an inner product space is linearly independent.\\
+\\
+\section{Gram-Schmidt Theorem}
+Let $ (E, <,>) $ be a eucledian space and $ B = \{ e_{1}, e_{2}, ... , e_{n} \} $ a basis of E. Then there exists an orthogonal basis $ O = \{ f_{1}, f_{2}, ... f_{n} \} $ from E. such that $ \forall k \in [1, n] $, $ f_{k} \in span(B) $.
+\\
+\section{Theorem of orthogonal supplementary}
+Let $ (E, <,>) $ be a eucledian space and `F' a sub-vector space of E, then:\\
+$ E = F \oplus F^{\perp} $\\
+\textbf{Corollary:} $ F^{\perp \perp} = F $, only in a eucledian space, i.e, Finite dimension.\\
+\\
+\section{Orthogonal Projections}
+\textbf{Definition}\\
+Let $ (E, <,>) $ be a eucledian space and F a sub-vector space of E. We call orthogonal projector on `F' and we denote $ P_{F} $ the projector on F parallel to $ F^{\perp} $ i.e.,
+$ P_{F} \in L(E) $ such that:\\
+$ P_{F} ^ 2 = P_{F} $, and $ Im(F) = F $ and $ ker(F) = F^{\perp} $\\
+\textbf{Proposition:} $ \forall x \in E $\\
+
+$ P_{F} (x) = $ $ \displaystyle\sum_{i=1}^{n}  <x,e_{i}>\cdot e_{i} $\\
+\section{Distance to a subspace}
+\textbf{Proposition:} Let F be a sub-vector space of a eucledian space $ (E, <,>) $. Then, the map:\\
+$ y \Rightarrow \left\lVert x - y \right\rVert $ $ \forall x \in E $ reaches it's minimum value at $ P_{F} (x) $.\\
+We call distance of x to F and denote $ d(x, F) $ the real number: $ \left\lVert x - P_{F} (x) \right\rVert $.\\
+\\
+\section{Extra remarks}
+\begin{itemize}
+    \item If F is of finite dimension, then $ E = F \oplus F^{\perp} $
+    \item if E is finite, $ F^{\perp \perp } = F $, but if it's not, then $ F \subset F^{\perp \perp} $
+\end{itemize}
+\end{document}

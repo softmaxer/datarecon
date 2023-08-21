@@ -1,0 +1,48 @@
+\documentclass{article}
+\title{Fourier series and transforms.}
+\author{Sriram Vadlamani}
+\begin{document}
+\maketitle
+\newpage
+\section*{Introduction}
+Fourier series are a way of approximating discontious functions into continuos functions. For example the PDE heat equation can be approximated as an `infinite' sum of sine waves of different frequencies. The key word here is definitely \textit{infinite}. A finite sum is simply not capable of giving a discountious function as a finite sum of two continuos functions is still continuos. What are the different frequencies of these sine waves? That will be explored later in the notes. What may simplify or rather generalize the hypothesis is by assuming the input as real numbers and the output as a 2 dimensional complex plane. 
+
+\section*{Basic Math}
+$f: \left[ \begin{array} { c c c } { [ 0,1 ] } & { \longmapsto } & { c ^ { 2 } } \\ { x } & { \longmapsto } & { e ^ { i x } } \end{array} \right.$\\
+The function `f' maps any real number between zero to one to a complex number $e ^ {ix}$.
+The \textit{i} gives a rotation to the number.
+\\
+let's begin by applying every real number to this function that maps it to a specific complex number as below:\\
+$ -1: \quad f ( x ) = e ^ { - 2 \pi i x }   \forall x \in [ 0,1 ]$\\
+$2: f ( x ) = e ^ { 2 \cdot 2 \pi i x }     \forall x \in [ 0,1 ]$\\
+$3:  f ( x ) = e ^ { 3 \cdot 2 \pi i x }$\\
+and so on.\\
+$\forall n \in { R } , f ( x ) = e ^ { n \cdot 2 \pi i x } \forall x \in [ 0,1 ]$\\
+\\
+As we can see above, $e^{2 \pi i x}$ rotates the vector in a circular motion as x goes from zero to one.
+\\
+What if, now we want these vectors to have a specific initial length and angle? We can do that by multiplying 
+each of these outputs by $c_{n}$ where $c_{n}$ is a complex constant. For example if we want a value to have an initial angle of 45 degrees, $c_{n}$ would be $e^{i \pi /4}$\\
+$= \cdots + c _ { 0 } e ^ { 0.2 \pi i x } + c _ { 1 } e ^ { 2 \pi i x } + c _ { 2 } e ^ { 2 - 2 x i x } +$\\
+\\
+Now, we should be able to approximate any function $f ( x ) $ as an infinite sum of such values and it would look something like this:\\
+$f ( x ) = c _ { 0 } e ^ { 2 \pi i x \cdot 0 } + c _ { 1 } e ^ { 2 \pi i x } + c _ { 2 } e ^ { 2 \cdot 2 \pi i x } + \cdots$\\
+
+\section{Finding the complex constants}
+Now, in order to draw out any shape we like, we need to determine these constants $c_{n}$. 
+Let's start with the simplest one $c_{0}$. The point $c_{0}$ acts like a center of mass for the function that we have and thus would be the average of all the other outputs from this function.\\
+In other words, it would be an integral:\\
+$c_{0}$ $ = $ $\int_{0}^{1} f(x) dx$\\
+That would equal:\\
+$\int _ { 0 } ^ { 1 } \left( c _ { 1 } e ^ { 2 \pi i x } + c _ { 2 } e ^ { 2 \cdot 2 x i x } + \cdots \right) d x$\\
+Hence, we can deduce a general formula by that, 
+$\forall n \in {R}$\\
+$c_{n} = $
+$c _ { n } = \int _ { 0 } ^ { 1 } f ( x ) \cdot e ^ { - n 2 \pi i x } d x $\\
+\\
+\\
+
+That brings us to the end of the fourier series. The next part will focus on transforms and basic exercises on converting discontinous functions into an infinite sum of sine waves.
+\\
+\\
+\end{document}
